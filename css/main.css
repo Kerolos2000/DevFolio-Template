@@ -1093,4 +1093,9 @@ body {
   margin: 5px;
   padding: 5px 10px;
   border-radius: 50px;
-}/*# sourceMappingURL=main.css.map */
+}
+@media (max-width: 767px) {
+  #new #mainSec .container .row .right .card2 div p {
+    font-size: calc(0.5rem + 1vw);
+  }
+/*# sourceMappingURL=main.css.map */
