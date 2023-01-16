@@ -1,0 +1,1031 @@
+// shared variables
+$mainColor: #0078ff;
+$secColor: #f8f9fa;
+$therdColor: #bedcff;
+::selection {
+  background-color: #a2cdff;
+  color: #fff;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $mainColor;
+}
+::-webkit-scrollbar-track {
+  background-color: $secColor;
+}
+* {
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+@media (max-width: 250px) {
+  * {
+    font-size: 0.8rem !important;
+  }
+}
+
+@mixin fSize {
+  @media (max-width: 767px) {
+    font-size: calc(0.5rem + 1vw);
+  }
+}
+
+@mixin secPanner {
+  h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    @media (max-width: 767px) {
+      font-size: calc(1.5rem + 1vw);
+    }
+    @media (max-width: 250px) {
+      font-size: calc(1rem + 1vw);
+    }
+  }
+  p {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 5px;
+      background-color: $mainColor;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@mixin bg($color, $background) {
+  background: linear-gradient($color, $color), url($background);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+@mixin allCard {
+  .card {
+    &:hover .icon {
+      background-color: #0078ff;
+      outline: 10px solid $therdColor;
+    }
+    &:hover .icon svg {
+      color: #fff;
+    }
+    padding: 15px;
+    align-items: center;
+    .icon {
+      width: 100px;
+      height: 100px;
+      outline: 10px solid $mainColor;
+      margin: 30px 0;
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.5s;
+      @media (max-width: 200px) {
+        width: 20px;
+        height: 20px;
+        min-height: 20px;
+        min-width: 20px;
+        outline: 3px solid $mainColor;
+        margin: 10px 0;
+      }
+      svg {
+        font-size: 3rem;
+        transition: 0.5s;
+      }
+    }
+    h3 {
+      text-transform: uppercase;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.toUp {
+  background-color: $mainColor;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  opacity: 0;
+  transition: 1s;
+  z-index: 99999;
+}
+
+.Allloader{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 9999;
+  // display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(224 224 224 / 80%);
+  backdrop-filter: blur(15px);
+  .loader{
+    width: 100px;
+    height: 100px;
+    border: 15px solid $secColor;
+    border-radius: 50%;
+    border-bottom-color: $mainColor;
+    animation: loop 0.5s linear infinite;
+  }
+}
+@keyframes loop {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+// sections style
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1.5rem;
+  z-index: 2;
+  transition: 1s;
+  .container {
+    & > div {
+      @media (max-width: 991px) {
+        display: contents;
+      }
+      a {
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 1.1rem;
+        opacity: 0.8;
+        transition: 0.5s;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      .navbar-brand {
+        text-transform: unset;
+        font-size: 1.6rem;
+        font-weight: 600;
+      }
+      .navbar-collapse {
+        ul {
+          li {
+            margin: 0 10px;
+            @media (max-width: 991px) {
+              margin: 0;
+            }
+            .dropdown-menu {
+              right: 0;
+              left: auto;
+              @media (max-width: 991px) {
+                position: relative;
+              }
+              a {
+                &:focus {
+                  background-color: #e0e0e0;
+                }
+              }
+            }
+          }
+          .active {
+            a {
+              position: relative;
+              padding: 10px 0;
+              &::after {
+                content: "";
+                position: absolute;
+                background: #fff;
+                height: 3px;
+                width: 35px;
+                bottom: 0;
+                left: 0;
+              }
+            }
+          }
+        }
+      }
+      button {
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
+      }
+      .navbar-toggler {
+        position: relative;
+        border: none;
+        &[aria-expanded="true"] span:nth-child(2) {
+          opacity: 0;
+        }
+        &[aria-expanded="true"] span:first-child,
+        &[aria-expanded="true"] span:last-child {
+          top: 6px;
+          background-color: $mainColor;
+        }
+        &[aria-expanded="true"] span:first-child {
+          transform: rotate(45deg);
+        }
+        &[aria-expanded="true"] span:last-child {
+          transform: rotate(-45deg);
+        }
+        span {
+          background-color: rgb(255, 255, 255);
+          mix-blend-mode: difference;
+          height: 2px;
+          position: absolute;
+          width: 100%;
+          left: 0;
+          transition: all 0.3s ease;
+          &:first-child {
+            top: 0;
+          }
+          &:nth-child(2) {
+            top: 6px;
+          }
+          &:last-child {
+            top: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+.scroller {
+  .container {
+    & > div {
+      a {
+        color: $mainColor !important;
+      }
+      .navbar-collapse {
+        ul {
+          li {
+            .dropdown-menu {
+              a {
+                &:focus {
+                  background-color: $mainColor !important;
+                }
+              }
+            }
+          }
+          .active {
+            a {
+              &::after {
+                background: $mainColor !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#Home {
+  min-height: 100vh;
+  @include bg(#00000080, "../img/intro-bg.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  .container {
+    h1 {
+      font-weight: 600;
+      font-size: calc(3rem + 1vw);
+      @media (max-width: 576px) {
+        font-size: calc(1.5rem + 1vw);
+      }
+    }
+    p {
+      font-size: calc(2rem + 1vw);
+      @media (max-width: 576px) {
+        font-size: calc(1rem + 1vw);
+      }
+    }
+  }
+}
+
+#About {
+  padding: 50px 0;
+  .container {
+    .card {
+      padding: 20px;
+      .row {
+        .left {
+          .img-text {
+            display: flex;
+            margin: 10px 0;
+            @media (max-width: 991px) {
+              flex-direction: column;
+            }
+            @include fSize();
+          }
+          .skills {
+            font-weight: 600;
+            color: #1e1e1e;
+            font-size: 1.1rem;
+          }
+          .Allprogress {
+            margin: 10px 0;
+            .lebels {
+              display: flex;
+              justify-content: space-between;
+              @include fSize();
+            }
+            .progress {
+              background-color: $therdColor;
+              height: 12px;
+              border-radius: 0;
+              .progress-bar {
+                transition: 3s;
+                height: 12px;
+                width: 0%;
+                background-color: $mainColor;
+              }
+            }
+          }
+        }
+        .right {
+          h2 {
+            font-weight: 600;
+            position: relative;
+            margin: 10px 0 20px 0;
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: -5px;
+              left: 0;
+              width: 90px;
+              height: 3px;
+              background-color: $mainColor;
+            }
+          }
+          p {
+            @include fSize();
+          }
+        }
+      }
+    }
+  }
+}
+
+#Services {
+  text-align: center;
+  .secPanner {
+    @include secPanner();
+  }
+  .container {
+    .row {
+      @include allCard();
+    }
+  }
+}
+
+#count {
+  padding: 5rem 0;
+  @include bg(#0078ff80, "../img/counters-bg.jpg");
+  .container {
+    @include allCard();
+    .card {
+      background-color: transparent;
+      border: none;
+      &:hover .icon {
+        background-color: transparent;
+        outline: 10px solid #cde1f8;
+      }
+      &:hover .icon svg {
+        color: #fff;
+      }
+      .icon {
+        outline: 10px solid #cde1f8;
+        background-color: transparent;
+        svg {
+          color: #fff;
+        }
+        @media (max-width: 200px) {
+          outline: 3px solid $therdColor;
+        }
+      }
+      h3,
+      p {
+        color: #fff;
+      }
+    }
+  }
+}
+
+#Work {
+  text-align: center;
+  .secPanner {
+    @include secPanner();
+  }
+  .container {
+    .row {
+      .allCard {
+        a {
+          color: unset;
+          text-decoration: none;
+          .card {
+            cursor: pointer;
+            &:hover .img img {
+              transform: scale(1.3);
+            }
+            .img {
+              overflow: hidden;
+              img {
+                max-width: 100%;
+                transition: 1s;
+              }
+            }
+            .text-icon {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 20px;
+              .text {
+                text-align: start;
+                p {
+                  span {
+                    color: $mainColor;
+                  }
+                }
+              }
+              .icon {
+                width: 40px;
+                height: 40px;
+                min-height: 40px;
+                min-width: 40px;
+                border: 2px solid $mainColor;
+                border-radius: 50%;
+                position: relative;
+                &::after {
+                  content: "+";
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  font-size: 2rem;
+                  color: $mainColor;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#swipe {
+  padding: 10rem 0;
+  @include bg(#0078ff80, "../img/overlay-bg.jpg");
+  .container {
+    .swiper {
+      cursor: pointer;
+      .swiper-wrapper {
+        .swiper-slide {
+          .card {
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            background-color: transparent;
+            border: none;
+            .img {
+              margin: 10px 0;
+              img {
+                max-width: 100%;
+                border-radius: 50%;
+              }
+            }
+            h2 {
+              font-weight: 600;
+            }
+            .lead {
+              font-weight: 100;
+              @media (min-width: 1200px) {
+                padding: 0 15rem;
+              }
+            }
+            .icon {
+              width: 50px;
+              height: 50px;
+              min-height: 50px;
+              min-width: 50px;
+              border-radius: 50%;
+              background-color: #fff;
+              margin: 10px auto 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              svg {
+                color: $mainColor;
+                font-size: 2rem;
+              }
+            }
+          }
+        }
+      }
+      .swiper-pagination {
+        bottom: 5px;
+        .swiper-pagination-bullet {
+          width: 30px;
+          height: 7px;
+          border-radius: 0;
+          transition: 1s;
+        }
+        .swiper-pagination-bullet-active {
+          background: #fff;
+          width: 20px;
+        }
+      }
+    }
+  }
+}
+
+#Blog {
+  text-align: center;
+  padding: 5rem 0;
+  .secPanner {
+    @include secPanner();
+  }
+  .container {
+    .row {
+      .allcard {
+        .card {
+          text-align: start;
+          .img {
+            img {
+              max-width: 100%;
+            }
+          }
+          .allText {
+            margin: 10px 0;
+            padding: 10px;
+            position: relative;
+            .abs {
+              position: absolute;
+              background-color: $mainColor;
+              width: fit-content;
+              padding: 5px 10px;
+              border-radius: 5px;
+              top: -30px;
+              left: 50%;
+              transform: translate(-50%, 0);
+              p {
+                color: $secColor;
+                margin: 0;
+                text-transform: uppercase;
+                @include fSize();
+              }
+            }
+            h4 {
+              font-weight: 600;
+              a {
+                color: #1e1e1e;
+                text-decoration: none;
+                transition: 1s;
+                &:hover {
+                  color: $mainColor;
+                }
+              }
+            }
+            p {
+              color: #4e4e4e;
+            }
+          }
+          .card-footer {
+            .img-text {
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              .img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img {
+                  width: 50px;
+                  height: 50px;
+                  border-radius: 50%;
+                }
+                p {
+                  margin: 0 10px;
+                }
+              }
+              .text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                p {
+                  margin: 0 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@mixin formbtn {
+  text-transform: uppercase;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: $mainColor;
+  outline: 5px solid transparent;
+  border-radius: 50px;
+  outline: none;
+  transition: 0.5s;
+  @media (max-width: 200px) {
+    font-size: 0.7rem;
+  }
+  &:hover,
+  &:focus {
+    outline: 5px solid #a2cdff;
+    box-shadow: none;
+  }
+}
+#Contact {
+  padding: 5rem 0;
+  @include bg(#0078ff80, "../img/overlay-bg.jpg");
+  .container {
+    .card {
+      padding: 20px;
+      border-radius: 0;
+      .row {
+        .left h2,
+        .right h2 {
+          position: relative;
+          margin-bottom: 20px;
+          &::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background-color: $mainColor;
+            bottom: -10px;
+            left: 0;
+          }
+        }
+        .left {
+          form {
+            .row {
+              .form-outline {
+                margin: 10px 0;
+                position: relative;
+                .invalid-tooltip {
+                  position: relative;
+                  top: 0;
+                  margin: 10px 0;
+                  font-size: 18px;
+                  background-color: transparent;
+                  color: #ff0055;
+                  padding: 0;
+                }
+                input {
+                  box-shadow: none;
+                  outline: none;
+                  &:focus {
+                    border: 2px solid #4169e1;
+                  }
+                }
+                #textarea {
+                  height: 150px;
+                  vertical-align: bottom;
+                }
+                #submit {
+                  cursor: not-allowed;
+                }
+                button {
+                  @include formbtn();
+                }
+              }
+            }
+          }
+        }
+        .right {
+          p {
+            color: #4e4e4e;
+          }
+          .allinf {
+            .inf {
+              display: flex;
+              align-items: center;
+              svg {
+                width: 20px;
+                color: $mainColor;
+              }
+              p {
+                margin: 0 5px;
+                line-height: 2;
+              }
+            }
+          }
+          .allIcons {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px 0;
+            .icon {
+              width: 40px;
+              height: 40px;
+              min-height: 40px;
+              min-width: 40px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 10px;
+              border-radius: 50%;
+              outline: 3px solid $mainColor;
+              background-color: transparent;
+              transition: 1s;
+              &:hover {
+                outline: 3px solid $therdColor;
+                background-color: $mainColor;
+                color: #fff;
+              }
+              svg {
+                font-size: 20px;
+              }
+              @media (max-width: 280px) {
+                width: 20px;
+                height: 20px;
+                min-height: 20px;
+                min-width: 20px;
+                svg {
+                  font-size: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#footer {
+  padding: 3rem;
+  @include bg(#0078ff80, "../img/overlay-bg.jpg");
+  color: #fff;
+}
+
+@mixin col {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 3px;
+  background-color: $mainColor;
+}
+@mixin row {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 100px;
+  bottom: -5px;
+  left: 0;
+  background-color: $mainColor;
+}
+#new {
+  #banner {
+    padding: 10rem 0;
+    @include bg(#0078ff80, "../img/overlay-bg.jpg");
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      h1 {
+        @include fSize();
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+      div {
+        a {
+          text-decoration: none;
+          color: $secColor;
+        }
+        .active {
+          color: $therdColor;
+        }
+      }
+    }
+  }
+  #mainSec {
+    margin: 5rem 0;
+    .container {
+      .row {
+        .card {
+          margin: 2rem 0;
+          padding: 2rem !important;
+          @media (max-width: 767px) {
+            padding: 0.5rem !important;
+          }
+        }
+        .left {
+          .card1 {
+            .main-img {
+              img {
+                max-width: 100%;
+              }
+            }
+            h2 {
+              font-weight: 600;
+            }
+            .ul {
+              display: flex;
+              position: relative;
+              flex-wrap: wrap;
+              @media (max-width: 767px) {
+                flex-direction: column;
+              }
+              &::after {
+                @include col();
+              }
+              .li {
+                margin: 0 10px;
+                span {
+                  color: $mainColor;
+                }
+              }
+            }
+            .allP {
+              margin: 20px 0;
+              p {
+                margin: 10px 0;
+              }
+              .p {
+                margin: 15px 0;
+                position: relative;
+                font-style: italic;
+                font-size: 1.5rem;
+                &::before {
+                  @include col();
+                  margin: 0 -10px;
+                }
+              }
+            }
+          }
+          .card2 {
+            h2 {
+              position: relative;
+              font-weight: 600;
+              &::after {
+                @include row();
+              }
+            }
+            .comment {
+              display: flex;
+              margin: 2rem 0;
+              @media (max-width: 767px) {
+                flex-wrap: wrap;
+                margin: 1rem 0;
+              }
+              img {
+                width: 80px;
+                height: 80px;
+              }
+              .text {
+                margin: 0 1rem;
+                @media (max-width: 767px) {
+                  margin: 1rem;
+                }
+                .i {
+                  font-style: italic;
+                }
+                span {
+                  margin: 1rem 0;
+                  color: $mainColor;
+                  cursor: pointer;
+                }
+              }
+            }
+            .reply {
+              margin: 0 0 2rem 4rem;
+              @media (max-width: 767px) {
+                margin: 0 0 1rem 2rem;
+              }
+            }
+          }
+          .card3 {
+            h2 {
+              position: relative;
+              font-weight: 600;
+              &::after {
+                @include row();
+              }
+            }
+            .form-outline {
+              margin: 10px 0;
+              .invalid-tooltip {
+                position: relative;
+                top: 0;
+                margin: 10px 0;
+                font-size: 18px;
+                background-color: transparent;
+                color: #ff0055;
+                padding: 0;
+              }
+              #textarea {
+                height: 150px;
+              }
+              button {
+                @include formbtn();
+              }
+            }
+          }
+        }
+        .right {
+          .card {
+            padding: 2rem;
+            h2 {
+              position: relative;
+              margin: 10px 20px;
+              &::before {
+                @include col();
+                width: 5px;
+                background-color: #0078ff;
+                left: -15px;
+              }
+            }
+          }
+          .card1 {
+            margin: 2rem 0;
+            div {
+              input,
+              button {
+                border-radius: 0;
+              }
+            }
+          }
+          .card2 {
+            ul {
+              list-style: none;
+              li {
+                position: relative;
+                margin: 10px 0;
+                &::before {
+                  content: "";
+                  position: absolute;
+                  width: 20px;
+                  height: 3px;
+                  background-color: #0078ff;
+                  left: -30px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                }
+                a {
+                  text-decoration: none;
+                  color: #1e1e1e;
+                  transition: 1s;
+                  &:hover {
+                    color: $mainColor;
+                  }
+                }
+              }
+            }
+            div {
+              display: flex;
+              flex-wrap: wrap;
+              p {
+                background: $mainColor;
+                color: #fff;
+                margin: 5px;
+                padding: 5px 10px;
+                border-radius: 50px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
